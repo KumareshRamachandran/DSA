@@ -29,15 +29,15 @@ public class MinimumEffort {
             if(row == n-1 && col == m-1) return diff;
             for (int i = 0; i < 4; i++) {
                 int nRow = row + dRow[i], nCol = col + dCol[i];
-                int newEffort = Math.max(Math.abs(heights[row][col]-heights[nRow][nCol]), diff);
-                if(newEffort<dist[nRow][nCol]){
-                    dist[nRow][nCol] = newEffort;
-                    pq.add(new Pair(newEffort, nRow, nCol));
+                if(nRow>=0 && nRow<n && nCol>=0 && nCol<m) {
+                    int newEffort = Math.max(Math.abs(heights[row][col] - heights[nRow][nCol]), diff);
+                    if (newEffort < dist[nRow][nCol]) {
+                        dist[nRow][nCol] = newEffort;
+                        pq.add(new Pair(newEffort, nRow, nCol));
+                    }
                 }
             }
         }
         return 0;
     }
-
-
 }
