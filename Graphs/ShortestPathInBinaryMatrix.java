@@ -12,9 +12,10 @@ public class ShortestPathInBinaryMatrix {
         }
     }
     public static void main(String[] args) {
-        System.out.println(shortestPathBinaryMatrix(new int[][]{{0,1},{1,0}}));
+        System.out.println(shortestPathBinaryMatrix(new int[][]{{0,0,0},{1,1,0},{1,1,0}}));
     }
     public static int shortestPathBinaryMatrix(int[][] grid) {
+        if(grid[0][0]==1) return -1;
         int n = grid.length;
         Queue<Pair> q = new LinkedList<>();
         int[][] dist = new int[n][n];
@@ -23,8 +24,8 @@ public class ShortestPathInBinaryMatrix {
                 dist[i][j] = (int) (1e9);
             }
         }
-        dist[0][0] = 0;
-        q.add(new Pair(0, 0, 0));
+        dist[0][0] = 1;
+        q.add(new Pair(1, 0, 0));
         while(!q.isEmpty()){
             Pair it = q.poll();
             int dis = it.first, r = it.second, c = it.third;
@@ -35,13 +36,17 @@ public class ShortestPathInBinaryMatrix {
                         if(nRow>=0 && nRow<n && nCol>=0 && nCol<n &&
                         grid[nRow][nCol]==0 && dis + 1 < dist[nRow][nCol]){
                             dist[nRow][nCol] = 1 + dis;
-                            if(nRow==n-1 && nCol==n-1) return dis+1;
+                            if(nRow==n-1 && nCol==n-1) {
+                                System.out.println(Arrays.deepToString(dist));
+                                return dis+1;
+                            }
                             q.add(new Pair(1+dis, nRow, nCol));
                         }
                     }
                 }
             }
         }
+        System.out.println(Arrays.deepToString(dist));
         return -1;
     }
 }
