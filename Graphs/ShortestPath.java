@@ -1,6 +1,10 @@
 import java.util.*;
 
 public class ShortestPath {
+    public static void main(String[] args) {
+        System.out.println(shortestPath(5, 6,
+                new int[][]{{1,2,2}, {2,5,5}, {2,3,4}, {1,4,1},{4,3,3},{3,5,1}}));
+    }
     static class Pair{
         int first, second;
         public Pair(int first, int second) {
@@ -10,7 +14,7 @@ public class ShortestPath {
     }
     public static List<Integer> shortestPath(int n, int m, int[][] edges){
         List<List<Pair>> adj = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i <= n; i++) {
             adj.add(new ArrayList<>());
         }
         for (int i = 0; i < m; i++) {
@@ -22,12 +26,13 @@ public class ShortestPath {
         int[] parent = new int[n+1];
         for (int i = 1; i <= n; i++) {
             dist[i] = (int) 1e9;
-            parent[i]=i;
+            parent[i]= i;
         }
         dist[1] = 0;
         pq.add(new Pair(0, 1));
         while(!pq.isEmpty()){
-            Pair it = pq.poll();
+            Pair it = pq.peek();
+            pq.remove();
             int node = it.second, dis = it.first;
             for(Pair iter: adj.get(node)){
                 int adjNode = iter.first;
@@ -50,6 +55,7 @@ public class ShortestPath {
         }
         path.add(1);
         Collections.reverse(path);
+        path.addFirst(dist[n]);
         return path;
     }
 }
