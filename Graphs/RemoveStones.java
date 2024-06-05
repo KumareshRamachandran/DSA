@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 
 public class RemoveStones {
     public static int removeStones(int[][] stones) {
@@ -18,8 +19,8 @@ public class RemoveStones {
             stoneNodes.put(nodeCol, 1);
         }
         int cnt = 0;
-        for(Integer i: stoneNodes.keySet()){
-            if(ds.findUPar(stoneNodes.get(i))==stoneNodes.get(i)) cnt++;
+        for(Map.Entry<Integer, Integer> it: stoneNodes.entrySet()){
+            if(ds.findUPar(it.getKey())==it.getKey()) cnt++;
         }
         return n - cnt;
     }
